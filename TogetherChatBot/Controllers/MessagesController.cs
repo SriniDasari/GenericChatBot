@@ -33,6 +33,17 @@ namespace TogetherChatBot
                     Activity reply = activity.CreateReply("Hello there! How can I help you today?");
                     await connector.Conversations.ReplyToActivityAsync(reply);
                 }
+                else if (activity.Text.ToLower().Contains("ensure") || activity.Text.ToLower().Contains("ok"))
+                {
+                    Activity reply = activity.CreateReply("Noted! Is there anything else I can help you with?");
+                    await connector.Conversations.ReplyToActivityAsync(reply);
+                }
+                else if ((activity.Text.ToLower().Contains("no")) || (activity.Text.ToLower().Contains("thanks")) || (activity.Text.ToLower().Contains("nothing")))
+                {
+                    Activity reply = activity.CreateReply("Ok. Have a good day!");
+                    await connector.Conversations.ReplyToActivityAsync(reply);
+                }
+
                 //else if (activity.Text.ToLower().Contains("apply") || activity.Text.ToLower().Contains("email") || activity.Text.ToLower().Contains("phone") || activity.Text.ToLower().Contains("number") || activity.Text.ToLower().Contains("call") || activity.Text.ToLower().Contains("name"))
                 //{
                 //    // await Conversation.SendAsync(activity, () => new ApplicationDialog());
