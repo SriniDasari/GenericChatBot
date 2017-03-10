@@ -7,6 +7,10 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using Microsoft.Bot.Connector;
 using Newtonsoft.Json;
+using TogetherChatBot.Models;
+using Microsoft.Bot.Builder.Dialogs;
+using Microsoft.Bot.Builder.FormFlow;
+
 
 namespace TogetherChatBot
 {
@@ -19,15 +23,26 @@ namespace TogetherChatBot
         /// </summary>
         public async Task<HttpResponseMessage> Post([FromBody]Activity activity)
         {
+            string[] strArray = { "1", "2", "3", "4", "5" };
             if (activity.Type == ActivityTypes.Message)
             {
                 ConnectorClient connector = new ConnectorClient(new Uri(activity.ServiceUrl));
-                // calculate something for us to return
-                int length = (activity.Text ?? string.Empty).Length;
+                
+                if ((activity.Text.ToLower().Equals("hi")) || activity.Text.ToLower().Equals("hello"))
+                {
+                    Activity reply = activity.CreateReply("Hello there! How can I help you today?");
+                    await connector.Conversations.ReplyToActivityAsync(reply);
+                }
+                //else if (activity.Text.ToLower().Contains("apply") || activity.Text.ToLower().Contains("email") || activity.Text.ToLower().Contains("phone") || activity.Text.ToLower().Contains("number") || activity.Text.ToLower().Contains("call") || activity.Text.ToLower().Contains("name"))
+                //{
+                //    // await Conversation.SendAsync(activity, () => new ApplicationDialog());
+                //    await Conversation.SendAsync(activity, MakeAccountDialog);
+                //}
+                else //if (activity.Text.ToLower().Contains("loan") || activity.Text.ToLower().Contains("mortgage") || activity.Text.ToLower().Contains("bridging") || strArray.Any(activity.Text.Equals))
+                {
+                    await Conversation.SendAsync(activity, MakeLoanDialog);
+                }
 
-                // return our reply to the user
-                Activity reply = activity.CreateReply($"You sent {activity.Text} which was {length} characters");
-                await connector.Conversations.ReplyToActivityAsync(reply);
             }
             else
             {
@@ -65,5 +80,23 @@ namespace TogetherChatBot
 
             return null;
         }
+
+
+        //internal static IDialog<Account> MakeRootDialog()
+        //{
+        //    return Chain.From(() => FormDialog.FromForm(Account.BuildForm));
+
+        //}
+
+        internal static IDialog<Loans> MakeLoanDialog()
+        {
+            return Chain.From(() => FormDialog.FromForm(Loans.BuildForm));
+        }
+
+        //internal static IDialog<Account> MakeAccountDialog()
+        //{
+        //    return Chain.From(() => FormDialog.FromForm(Account.BuildForm));
+        //}
+
     }
 }
