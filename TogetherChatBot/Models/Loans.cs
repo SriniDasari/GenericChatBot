@@ -46,10 +46,10 @@ namespace TogetherChatBot.Models
         [Prompt("Would you like to apply? {||}")]
         public ApplyConfirm? ApplyConfirm;
 
-        [Prompt("Please enter your name")]
+        [Prompt("We require some additional details in order to process your application. Can you please provide me with the following? Please enter your name.")]
         public string Name;
 
-        [Prompt("Please enter your contact number")]
+        [Prompt("Please enter your contact number.")]
         public string PhoneNumber;
 
         [Prompt("Please enter your email address.")]
