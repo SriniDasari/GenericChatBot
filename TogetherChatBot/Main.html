@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<style>
+    #frame{
+    display:none;
+}
+</style>
+<script>
+
+function showFrame(a,b)
+    {
+    document.getElementById(a).style.display="inline-block";
+    //document.getElementById(b).style.display="none";
+    }
+
+</script>
+
+<html>
+<head>
+    <title>Morrison Home Page</title>
+	<meta charset="utf-8" />
+</head>
+<body>
+    <h1>Morrison Home Page</h1>
+    <!--<button class="button">May i help you?</button>-->
+    <input type="button" id="button1" name="frameButton" value="May i help you?" onclick="showFrame('frame')">
+    <br/>
+    <br />
+    <iframe id="frame" src='https://webchat.botframework.com/embed/TogetherBot?s=2r4YWRTJW4U.cwA.4k4.pYILJDudmqWsjPLvjEhT_6YnF1DbVBB2gVxK-ovcoMU' width="400" height="500"></iframe>
+</body>
+</html>
